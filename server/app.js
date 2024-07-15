@@ -3,12 +3,14 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const fs = require("fs");
 const path = require("path");
+const cors = require("cors");
 const PORT = 5005;
 
 // INITIALIZE EXPRESS APP
 const app = express();
 
 // MIDDLEWARE
+app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.static("public"));

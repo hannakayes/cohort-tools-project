@@ -16,6 +16,7 @@ app.use(
     origin: ["http://localhost:5173"],
   })
 );
+app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.static("public"));

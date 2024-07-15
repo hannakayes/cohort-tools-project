@@ -10,6 +10,12 @@ const PORT = 5005;
 const app = express();
 
 // MIDDLEWARE
+app.use(
+  cors({
+    // Add the URLs of allowed origins to this array
+    origin: ["http://localhost:5173"],
+  })
+);
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 app.use(morgan("dev"));

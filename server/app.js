@@ -3,12 +3,19 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const fs = require("fs");
 const path = require("path");
+const cors = require("cors");
 const PORT = 5005;
 
 // INITIALIZE EXPRESS APP
 const app = express();
 
 // MIDDLEWARE
+app.use(
+  cors({
+    // Add the URLs of allowed origins to this array
+    origin: ["http://localhost:5173"],
+  })
+);
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.static("public"));

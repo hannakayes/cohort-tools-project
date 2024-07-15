@@ -5,6 +5,14 @@ const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
 const PORT = 5005;
+const mongoose = require("mongoose");
+
+// DB connection
+
+mongoose
+  .connect("mongodb://127.0.0.1:27017/cohort-tools-api")
+  .then((x) => console.log(`Connected to Database: "${x.connections[0].name}"`))
+  .catch((err) => console.error("Error connecting to MongoDB", err));
 
 // INITIALIZE EXPRESS APP
 const app = express();

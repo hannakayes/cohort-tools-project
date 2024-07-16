@@ -14,7 +14,10 @@ const studentSchema = new Schema({
   program: String,
   background: String,
   image: String,
-  cohort: objectId,
+  cohort: {                                           // <== UPDATE
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Cohort" // "Author" is the model to which we are creating a reference relationship
+  },
   projects: Array,
 });
 

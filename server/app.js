@@ -1,4 +1,7 @@
-const express = require("express");
+const express = require("express"),
+  bodyParser = require("body-parser"),
+  swaggerJsdoc = require("swagger-jsdoc"),
+  swaggerUi = require("swagger-ui-express");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const fs = require("fs");
@@ -6,8 +9,6 @@ const path = require("path");
 const cors = require("cors");
 const PORT = 5005;
 const mongoose = require("mongoose");
-const Student = require("./models/Student.model");
-const Cohort = require("./models/Cohort.model");
 
 // DB connection
 
@@ -19,6 +20,42 @@ mongoose
 // INITIALIZE EXPRESS APP
 const app = express();
 
+
+// SWAGGER CODE
+
+const options = {
+  definition: {
+    openapi: "3.1.0",
+    info: {
+      title: "LogRocket Express API with Swagger",
+      version: "0.1.0",
+      description:
+        "This is a simple CRUD API application made with Express and documented with Swagger",
+      license: {
+        name: "MIT",
+        url: "https://spdx.org/licenses/MIT.html",
+      },
+      contact: {
+        name: "LogRocket",
+        url: "https://logrocket.com",
+        email: "info@email.com",
+      },
+    },
+    servers: [
+      {
+        url: "http://localhost:5005",
+      },
+    ],
+  },
+  apis: ["./routes/*.js"],
+};
+const specs = swaggerJsdoc(options);
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(specs)
+);
+
 // MIDDLEWARE
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
@@ -26,6 +63,7 @@ app.use(morgan("dev"));
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 
 // DAY 1 & 2 ROUTES
 app.get("/", (req, res) => {
@@ -46,6 +84,7 @@ app.use("/api", indexRoutes);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
+
 
 // START SERVER
 app.listen(PORT, () => {

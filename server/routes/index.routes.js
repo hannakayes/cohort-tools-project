@@ -10,4 +10,7 @@ router.use("/students", studentsRoutes);
 const cohortsRoutes = require("./cohorts.routes");
 router.use("/cohorts", cohortsRoutes);
 
+const usersRoutes = require("./users.routes");
+router.use("/users", usersRoutes);
+
 module.exports = router;

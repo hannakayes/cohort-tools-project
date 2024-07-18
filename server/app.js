@@ -7,7 +7,7 @@ const cookieParser = require("cookie-parser");
 const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
-const PORT = 5005;
+require('dotenv').config();
 const mongoose = require("mongoose");
 
 // DB connection
@@ -76,17 +76,20 @@ app.get("/docs", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "docs.html"));
 });
 
-// DAY 3 ROUTES
-
 // 👇 Start handling routes here
 const indexRoutes = require("./routes/index.routes");
 app.use("/api", indexRoutes);
+
+// AUTH ROUTE
+
+const authRoutes = require('./routes/auth.routes')
+app.use('/auth', authRoutes)
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 
 
 // START SERVER
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server listening on port ${process.env.PORT}`);
 });

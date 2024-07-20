@@ -80,7 +80,7 @@ app.get("/docs", (req, res) => {
 const indexRoutes = require("./routes/index.routes");
 app.use("/api", indexRoutes);
 
-// AUTH ROUTE
+// AUTH ROUTe
 
 const authRoutes = require('./routes/auth.routes')
 app.use('/auth', authRoutes)
